@@ -1,0 +1,42 @@
+scp #023 - {{ color: black}} Black Shuck
+scp #028 - Knowledge
+scp #032 - Brothers' Bride
+scp #039 - Proboscis Engineers
+scp #054 - Water Nymph
+scp #063 - "The World's Best TothBrush"
+scp #070 - Iron Wings
+scp #093 - Red Sea Object
+scp #098 - Surgeon Crabs
+scp #131 - The "Eye Pods"
+scp #139 - Possible Skull of the White Div
+scp #143 - The Bladewood Grove
+scp #144 - Tibetan Rope to Heaven
+scp #145 - Man-Absorbing Phone
+scp #154 - Offensive Bracelets
+scp #155 - Infinite Speed Computer
+scp #159 - The Perfect Lock
+scp #162 - Ball of Sharp
+scp #166 - Teenage Succubus
+scp #198 - Cup of Joe
+scp #231 - Special Personnel Requirements
+	scp #245 - SCP-RPG -> to check
+scp #282 - Ritual Devil Sticks
+scp #285 - A Hack Job
+scp #289 - Inertial Amplifier
+scp #290 - The Picasso Machine
+scp #291 - Disassembler/Reassembler
+scp #294 - The Coffee Machine
+scp #319
+scp #320
+scp #321
+scp #329
+scp #334
+scp #348
+scp #354
+scp #355
+scp #363
+
+scp #953 - Polymorphic Humanoid
+scp #1471 - MalO ver1.0.0
+
+
