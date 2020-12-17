@@ -11,6 +11,3 @@ func _ready() -> void:
 
 func _pressed() -> void:
 	emit_signal("send_button_pressed")
-	if MessageInput.text:
-		MessagesContainer.add_message(MessageInput.text)
-		MessageInput.text = ''

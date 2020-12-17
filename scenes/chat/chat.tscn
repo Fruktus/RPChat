@@ -1,9 +1,45 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/chat/messageinput.gd" type="Script" id=1]
 [ext_resource path="res://scenes/chat/messagescontainer.gd" type="Script" id=2]
 [ext_resource path="res://scenes/chat/SendButton.gd" type="Script" id=3]
 [ext_resource path="res://scenes/chat/ScrollContainer.gd" type="Script" id=4]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// random value generator
+//float rand(vec2 co){
+//    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+//}
+// rand(Vec2(TIME, 0.0))
+
+// test chromatic aberration 1
+uniform float amount = 0.5;
+void fragment(){
+	vec4 texture_color = texture(TEXTURE, UV);
+	vec4 color = texture_color;
+
+	float adjusted_amount = amount / 100.0;
+	color.r = texture(TEXTURE, vec2(UV.x + adjusted_amount, UV.y)).r;
+	color.g = texture(TEXTURE, UV).g;
+	color.b = texture(TEXTURE, vec2(UV.x - adjusted_amount, UV.y)).b;
+	COLOR = color;
+}
+
+// move sprite in circles
+//void vertex() {
+//	VERTEX += vec2(cos(TIME)*100.0, sin(TIME)*100.0);
+//}
+
+// scale sprite
+//void vertex() {
+//	VERTEX *= 2.0;
+//}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/amount = 0.5
 
 [node name="Chat" type="Control"]
 anchor_right = 1.0
@@ -69,9 +105,10 @@ size_flags_vertical = 3
 script = ExtResource( 2 )
 
 [node name="tmpmsg" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/MessagesContainer"]
+material = SubResource( 2 )
 margin_right = 944.0
 margin_bottom = 14.0
-text = "testmessage (label)"
+text = "testmessage (label) ASDFFFL"
 
 [node name="MessageEditor" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 530.0
