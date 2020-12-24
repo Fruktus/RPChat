@@ -16,6 +16,7 @@ code = "shader_type canvas_item;
 
 // test chromatic aberration 1
 uniform float amount = 0.5;
+
 void fragment(){
 	vec4 texture_color = texture(TEXTURE, UV);
 	vec4 color = texture_color;

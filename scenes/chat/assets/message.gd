@@ -29,33 +29,25 @@ func _ready() -> void:
 
 
 func init(text: String):
+	# takes raw text and builds message objects composed of characters and effects tags
 	var parsed_message_array = parse_text(text)
-	var linecount = 0
-	
 	
 	for token in parsed_message_array:
 		if token is Dictionary:
-			update_settings(token)  # NOTE this actually works atm and is required for color test
 			var tag =  preload("res://scenes/chat/assets/tag.tscn").instance()
 			tag.init(token)
-			# TODO write proper method for appending characters
-			$LineContainer.get_child(linecount).add_child(tag)
+			
+			$LineContainer.append(tag)
 		else:
-			var lines = token.split('\n')
-			# if more than one line, create new box and insert, if not, then do not increment linecounter
-			for line in lines:
-				for character in line:
-					var character_container = preload("res://scenes/chat/assets/character.tscn").instance()
-					character_container.init_effects(effects)  # TODO init_effects and storing them
-					character_container.get_child(0).set_character(character)  # FIXME replace with method in character object
-					$LineContainer.get_child(linecount).add_child(character_container)
-				if len(lines) > 1:
-					linecount += 1
-					$LineContainer.add_child(HBoxContainer.new())
-
-	# TODEL for testing character typing
-	for i in $LineContainer.get_child(0).get_child_count():
-		$LineContainer.get_child(0).get_child(i).visible = false
+			for character in token:
+				if character == '\n':
+					$LineContainer.newline()
+					continue
+					
+				var character_container = preload("res://scenes/chat/assets/character.tscn").instance()
+				character_container.set_character(character)
+				character_container.visible = false
+				$LineContainer.append(character_container)
 
 func parse_text(text):
 	# will return array of text/commands (dicts)
@@ -90,61 +82,44 @@ func parse_tag(text):
 	
 	return tag
 
-func update_settings(new_effects: Dictionary):
+func update_settings(tag):
 	# meant to change the way new characters are set up
-	for key in new_effects:
-		effects[key] = new_effects[key]
+	for key in tag.effects:
+		effects[key] = tag.effects[key]
 
 # work in progress, effect application mechanism
 func _apply_effects(delta: float):
-	for character in range($LineContainer.get_child(0).get_child_count()):
-		# FIXME requires 1. proper retrieval, 2. proper indexing (including multilines)
-		# TODO figure out how to keep track of currently processed character (how to count, remember that tags count towards total len)
-		# maybe just use two nested loops
+	# TODO this should be a "while" loop since character_idx needs to be kept
+	for character_idx in range($LineContainer.total_elements):
+		var element = $LineContainer.get_element(character_idx)
 		
 		# First, check if the processed character is a tag, if it is then just update
 		# the effect table and continue
-#		if character.get_class() == "Control":
-#			pass
+		if element.get_class() == "Control":
+			update_settings(element)
+		else:
+			# else:  # not a tag, so apply effects
+			# apply dynamic effects
+			while current_effect < len(td_effects):
+				var res = td_effects[current_effect].call(delta, last_params)  # res[0] = completion, res[1] = params
+				last_params = res['params']
+				if not res['completed']:
+					return
+				current_effect += 1
 			
-		# else:  # not a tag, so apply effects
-		# apply dynamic effects
-		while current_effect < len(td_effects):
-			var res = td_effects[current_effect].call(delta, last_params)  # res[0] = completion, res[1] = params
-			last_params = res[1]
-			if not res[0]:
-				return
-			current_effect += 1
-		
-		# apply static effects
-		# self.get_character_at(char_x, char_y).apply(self.static)
-		
-		final_effect.call_func(character)
+			# apply static effects
+			element.init_effects(effects)  # TODO right now uses global effects var,
+			# should have separate tables for different effects
+			
+	#		final_effect.call_func(character)
+			element.visible = true
+	emit_signal("finished_playing")
+	set_process(false)
 
 var td_effects: Array  # array of funcref
 var final_effect: FuncRef
 var last_params: Dictionary
 var current_effect: int = 0
 
-func _process2(delta: float):
+func _process(delta: float):
 	_apply_effects(delta)
-# end wip
-
-
-# # # # # # # # # # # # # # # # #
-# TODEL character typing test
-var time = 0.0
-var ch = 0
-
-func _process(delta: float) -> void:
-	if (time + delta) > 0.01:
-		time = 0
-		if ch < $LineContainer.get_child(0).get_child_count():
-			$LineContainer.get_child(0).get_child(ch).visible = true
-			ch += 1
-		else:
-			# send signal that this message finished playing
-			emit_signal("finished_playing")
-			set_process(false)
-	else:
-		time += delta
