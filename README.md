@@ -1,5 +1,5 @@
 # RPGC-Client [![version](https://img.shields.io/badge/version-pre--alpha-red)]()
-Client part of RPGChat project. Built with Godot Engine.
+Client part of RPGChat project, server available [here](https://github.com/Fruktus/RPGC-Server). Built with Godot Engine.
 
 ## Installation and running
 Not yet available.
