@@ -8,14 +8,38 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "MarginContainer",
+"class": "Character",
+"language": "GDScript",
+"path": "res://scenes/chat/assets/Character.gd"
+}, {
+"base": "TS_Effect",
+"class": "TS_Color",
+"language": "GDScript",
+"path": "res://scenes/chat/effects/text_static/ts_color.gd"
+}, {
+"base": "Reference",
+"class": "TS_Effect",
+"language": "GDScript",
+"path": "res://scenes/chat/effects/text_static/ts_template.gd"
+}, {
+"base": "TS_Effect",
+"class": "TS_Shake",
+"language": "GDScript",
+"path": "res://scenes/chat/effects/text_static/ts_shake.gd"
+} ]
 _global_script_class_icons={
-
+"Character": "",
+"TS_Color": "",
+"TS_Effect": "",
+"TS_Shake": ""
 }
 
 [application]
 
 config/name="RPGCClient"
+run/main_scene="res://scenes/chat/Chat.tscn"
 config/icon="res://icon.png"
 
 [autoload]

@@ -21,7 +21,7 @@ func generate_mock_messages():
 		add_message(file.get_line())
 
 func add_message(text: String):
-	var message = preload("res://scenes/chat/assets/message.tscn").instance()
+	var message = preload("res://scenes/chat/assets/Message.tscn").instance()
 	message.init(text)
 	
 	if not message_playing:

@@ -2,14 +2,15 @@ extends Control
 
 
 var effects = {}
+var td_effects: Array  # array of funcref
+var final_effect: FuncRef
+var current_effect: int = 0
 
 signal finished_playing
 
 
 func _ready() -> void:
 	set_process(false)
-
-# will later contain full parsing mechanisms or smth
 
 # every message will be self-contained parsing-wise, as in at first you pass ALL
 # the parameters needed to format stuff and at the end everything gets reset (to think about, maybe change)
@@ -34,7 +35,7 @@ func init(text: String):
 	
 	for token in parsed_message_array:
 		if token is Dictionary:
-			var tag =  preload("res://scenes/chat/assets/tag.tscn").instance()
+			var tag =  preload("res://scenes/chat/assets/Tag.tscn").instance()
 			tag.init(token)
 			
 			$LineContainer.append(tag)
@@ -44,9 +45,8 @@ func init(text: String):
 					$LineContainer.newline()
 					continue
 					
-				var character_container = preload("res://scenes/chat/assets/character.tscn").instance()
+				var character_container = preload("res://scenes/chat/assets/Character.tscn").instance()
 				character_container.set_character(character)
-				character_container.visible = false
 				$LineContainer.append(character_container)
 
 func parse_text(text):
@@ -84,8 +84,20 @@ func parse_tag(text):
 
 func update_settings(tag):
 	# meant to change the way new characters are set up
+	# TODO should grab new effects from effect factory
+	
 	for key in tag.effects:
-		effects[key] = tag.effects[key]
+		# if key in effects:
+		#     del effects[key]
+		var effect = EffectFactory.get_effect(key)
+		# and then
+#		effects.append(effect)
+		
+		
+		# TODO this is used for coloring text at the moment, but should be removed
+		# when effect generation is complete
+#		effects[key] = tag.effects[key]
+		self.effects[key] = effect
 
 # work in progress, effect application mechanism
 func _apply_effects(delta: float):
@@ -101,8 +113,7 @@ func _apply_effects(delta: float):
 			# else:  # not a tag, so apply effects
 			# apply dynamic effects
 			while current_effect < len(td_effects):
-				var res = td_effects[current_effect].call(delta, last_params)  # res[0] = completion, res[1] = params
-				last_params = res['params']
+				var res = td_effects[current_effect].call(delta)  # res[0] = completion, res[1] = params
 				if not res['completed']:
 					return
 				current_effect += 1
@@ -112,14 +123,9 @@ func _apply_effects(delta: float):
 			# should have separate tables for different effects
 			
 	#		final_effect.call_func(character)
-			element.visible = true
+			element.enable()
 	emit_signal("finished_playing")
 	set_process(false)
-
-var td_effects: Array  # array of funcref
-var final_effect: FuncRef
-var last_params: Dictionary
-var current_effect: int = 0
 
 func _process(delta: float):
 	_apply_effects(delta)

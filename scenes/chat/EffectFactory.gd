@@ -7,34 +7,36 @@ func _ready() -> void:
 
 
 func get_effect(effect_name: String):
-	# TODO maybe load self as dict, that gives a list of methods
-	# and check if wanted method is there
-	# because otherwise i'll have to create dict with mapping
-	# and the function, so i'll need to update both when creating new effects
-	pass
+	if effect_name in self.effects:
+		var effect_class = load(self.effects[effect_name])
+		return effect_class.new()
+		
+	return null  # FIXME should be done in some nicer way, like return empty or false
 
 var effects = {"asd": "Asd",
-				"ts_color": funcref(self, "ts_color")}
+				"ts_color": "res://scenes/chat/effects/text_static/ts_color.gd",
+				"ts_shake": "res://scenes/chat/effects/text_static/ts_shake.gd",
+				"template": "res://lion.gd"}
 
 # effect(delta: float, params: dict) -> {'completed': bool, 'params': dict}
 
 # # # # # # # # # # # #
 # Text Static Effects #
 # # # # # # # # # # # #
-func ts_wave(amplitude, speed):
+func ts_wave(params):
 	pass
 
 
-func ts_spread(amount):
+func ts_spread(params):
 	# like shake but not animated
 	pass
 	
 
-func ts_shake(amount):
+func ts_shake(params):
 	pass
 
 
-func ts_color(color):
+func ts_color(params):
 	pass
 
 

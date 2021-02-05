@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/chat/messageinput.gd" type="Script" id=1]
-[ext_resource path="res://scenes/chat/messagescontainer.gd" type="Script" id=2]
-[ext_resource path="res://scenes/chat/SendButton.gd" type="Script" id=3]
-[ext_resource path="res://scenes/chat/ScrollContainer.gd" type="Script" id=4]
+[ext_resource path="res://scenes/chat/ScrollContainer.gd" type="Script" id=1]
+[ext_resource path="res://scenes/chat/SendButton.gd" type="Script" id=2]
+[ext_resource path="res://scenes/chat/MessagesContainer.gd" type="Script" id=3]
+[ext_resource path="res://scenes/chat/MessageInput.gd" type="Script" id=4]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -61,6 +61,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -96,14 +98,14 @@ margin_right = 944.0
 margin_bottom = 526.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 4 )
+script = ExtResource( 1 )
 
 [node name="MessagesContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer"]
 margin_right = 944.0
 margin_bottom = 526.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="tmpmsg" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/MessagesContainer"]
 material = SubResource( 2 )
@@ -121,14 +123,14 @@ margin_right = 897.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 
 [node name="SendButton" type="Button" parent="MarginContainer/VBoxContainer/MessageEditor"]
 margin_left = 901.0
 margin_right = 944.0
 margin_bottom = 30.0
 text = "send"
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 [connection signal="message_added" from="MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/MessagesContainer" to="MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer" method="_on_message_added"]
 [connection signal="send_text" from="MarginContainer/VBoxContainer/MessageEditor/MessageInput" to="MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/MessagesContainer" method="add_message"]
 [connection signal="send_button_pressed" from="MarginContainer/VBoxContainer/MessageEditor/SendButton" to="MarginContainer/VBoxContainer/MessageEditor/MessageInput" method="_send_text"]
