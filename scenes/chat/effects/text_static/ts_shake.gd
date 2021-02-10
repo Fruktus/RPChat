@@ -11,7 +11,7 @@ func init(params: Dictionary):
 	pass
 
 func instance():
-	self
+	return self
 
 func apply(Character: Character):
 	# this method should execute character logic, may be ran more than once in loop

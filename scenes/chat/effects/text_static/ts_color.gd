@@ -6,7 +6,7 @@ var color: Color
 
 
 func init(params: Dictionary):
-	self.color = ColorN(params.get('color', 'white'))
+	self.color = ColorN(params.get('ts_color', 'white'))
 
 
 func instance():

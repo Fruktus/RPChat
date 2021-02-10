@@ -90,6 +90,8 @@ func update_settings(tag):
 		# if key in effects:
 		#     del effects[key]
 		var effect = EffectFactory.get_effect(key)
+		var eff2 = effect.instance()
+		effect.init(tag.effects)
 		# and then
 #		effects.append(effect)
 		
