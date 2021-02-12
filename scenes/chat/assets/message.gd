@@ -68,19 +68,34 @@ func parse_text(text):
 
 func parse_tag(text):
 	var regex = RegEx.new()
-	regex.compile('((?<key>\\S+)\\s*:\\s*(?<value>\\S+))|(?<command>\\S+)')
-	
+	regex.compile('((?<key>\\S+)\\s*:\\s*(?<kwd>.+)\\s*(;|$))|(?<command>\\S+)\\s*(;|$)')
+
 	var tag = {}
 	for token in regex.search_all(text):
 		var key = token.get_string('key')
 		var command = token.get_string('command')
 		if key:
-			tag[key] = token.get_string('value')
+			tag[key] = parse_kwd(token.get_string('kwd'))
 		if command:
 			# TODO maybe instead add all effects as elements of array under key 'effects'
 			tag[command] = null
 	
 	return tag
+
+func parse_kwd(text):
+	var regex = RegEx.new()
+	regex.compile('(?<kwd>\\S+)\\s*=\\s*(?<kwv>\\S+)|(?<macro>\\S+)')
+	
+	var settings = {'macros': []}
+	for token in regex.search_all(text):
+		var kwd = token.get_string('kwd')
+		var macro = token.get_string('macro')
+		if kwd:
+			settings[kwd] = token.get_string('kwd')
+		if macro:
+			settings['macros'].append(macro)
+	
+	return settings
 
 func update_settings(tag):
 	# meant to change the way new characters are set up
