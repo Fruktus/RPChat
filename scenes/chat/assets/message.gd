@@ -4,7 +4,8 @@ extends Control
 var effects = {}
 var td_effects: Array  # array of funcref
 var final_effect: FuncRef
-var current_effect: int = 0
+var current_effect: int = -1
+var current_character_idx = 0
 
 signal finished_playing
 
@@ -78,7 +79,7 @@ func parse_tag(text):
 			tag[key] = parse_kwd(token.get_string('kwd'))
 		if command:
 			# TODO maybe instead add all effects as elements of array under key 'effects'
-			tag[command] = null
+			tag[command] = {'macros': []}
 	
 	return tag
 
@@ -104,8 +105,11 @@ func update_settings(tag):
 	for key in tag.effects:
 		# if key in effects:
 		#     del effects[key]
+		if 'none' in tag.effects[key]['macros']:
+			self.effects.erase(key)
+			continue
+		
 		var effect = EffectFactory.get_effect(key)
-		var eff2 = effect.instance()
 		effect.init(tag.effects)
 		# and then
 #		effects.append(effect)
@@ -114,13 +118,17 @@ func update_settings(tag):
 		# TODO this is used for coloring text at the moment, but should be removed
 		# when effect generation is complete
 #		effects[key] = tag.effects[key]
-		self.effects[key] = effect
+		if effect is TS_Effect:
+			self.effects[key] = effect
+		elif effect is TD_Effect:
+			self.td_effects.append(effect)  # FIXME this will make overwriting existing effects hard to handle
+			self.current_effect = len(self.td_effects) - 1
 
 # work in progress, effect application mechanism
 func _apply_effects(delta: float):
 	# TODO this should be a "while" loop since character_idx needs to be kept
-	for character_idx in range($LineContainer.total_elements):
-		var element = $LineContainer.get_element(character_idx)
+	while self.current_character_idx < $LineContainer.total_elements:
+		var element = $LineContainer.get_element(self.current_character_idx)
 		
 		# First, check if the processed character is a tag, if it is then just update
 		# the effect table and continue
@@ -129,18 +137,22 @@ func _apply_effects(delta: float):
 		else:
 			# else:  # not a tag, so apply effects
 			# apply dynamic effects
-			while current_effect < len(td_effects):
-				var res = td_effects[current_effect].call(delta)  # res[0] = completion, res[1] = params
-				if not res['completed']:
+			while current_effect >= 0:
+				var completed = self.td_effects[current_effect].apply(delta)
+				if not completed:
 					return
-				current_effect += 1
-			
+				if self.td_effects[current_effect].run_once():
+					self.td_effects.remove(current_effect)
+				current_effect -= 1
+
 			# apply static effects
 			element.init_effects(effects)  # TODO right now uses global effects var,
 			# should have separate tables for different effects
 			
 	#		final_effect.call_func(character)
 			element.enable()
+			current_effect = len(self.td_effects) - 1
+			self.current_character_idx += 1
 	emit_signal("finished_playing")
 	set_process(false)
 

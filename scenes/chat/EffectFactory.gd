@@ -16,6 +16,7 @@ func get_effect(effect_name: String):
 var effects = {"asd": "Asd",
 				"ts_color": "res://scenes/chat/effects/text_static/ts_color.gd",
 				"ts_shake": "res://scenes/chat/effects/text_static/ts_shake.gd",
+				"td_type": "res://scenes/chat/effects/text_dynamic/td_type.gd",
 				"template": "res://lion.gd"}
 
 # effect(delta: float, params: dict) -> {'completed': bool, 'params': dict}
