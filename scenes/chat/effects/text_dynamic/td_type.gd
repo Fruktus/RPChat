@@ -2,7 +2,7 @@ extends TD_Effect
 class_name TD_Type
 # All of the text-static effects have to implement these methods
 
-var time_to_pause = 1.0
+var time_to_pause = 0.5
 var time_paused = 0.0
 
 

@@ -3,7 +3,6 @@ extends Control
 
 var effects = {}
 var td_effects: Array  # array of funcref
-var final_effect: FuncRef
 var current_effect: int = -1
 var current_character_idx = 0
 
@@ -152,7 +151,7 @@ func _apply_effects(delta: float):
 	#		final_effect.call_func(character)
 			element.enable()
 			current_effect = len(self.td_effects) - 1
-			self.current_character_idx += 1
+		self.current_character_idx += 1
 	emit_signal("finished_playing")
 	set_process(false)
 
