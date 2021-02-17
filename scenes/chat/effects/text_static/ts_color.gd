@@ -6,7 +6,7 @@ var color: Color
 
 
 func init(params: Dictionary):
-	self.color = ColorN(params.get('ts_color')['macros'][0])  # FIXME this kinda does not look like the right way to pass this
+	self.color = ColorN(params['macros'][0])  # FIXME this kinda does not look like the right way to pass this
 
 
 func instance():

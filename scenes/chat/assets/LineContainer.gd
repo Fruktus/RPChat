@@ -5,6 +5,7 @@ var total_elements = 0
 var elements_in_lines = [0]
 
 
+
 func _ready() -> void:
 	pass
 
@@ -14,8 +15,11 @@ func append(element):
 	elements_in_lines[linecount] += 1
 	total_elements += 1
 
+
 func newline():
-	add_child(HBoxContainer.new())
+	var new_hbox = HBoxContainer.new()
+	new_hbox.set("custom_constants/separation", 0)
+	add_child(new_hbox)
 	linecount += 1
 	elements_in_lines.append(0)
 
@@ -27,7 +31,7 @@ func get_element(idx: int):
 	var start_idx = 0
 	var line = 0
 	
-	while start_idx + elements_in_lines[line] < idx:
+	while start_idx + elements_in_lines[line] - 1 < idx:  # FIXME will fail on empty lines
 		start_idx += elements_in_lines[line]
 		line += 1
 	

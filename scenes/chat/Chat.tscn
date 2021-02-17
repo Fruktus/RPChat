@@ -49,19 +49,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+
 [node name="tmpbg" type="ColorRect" parent="."]
-margin_left = 3.0
-margin_top = -3.0
-margin_right = 1027.0
-margin_bottom = 597.0
+visible = false
+margin_left = 40.0
+margin_top = 20.0
+margin_right = 984.0
+margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.254902, 0.254902, 0.254902, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0

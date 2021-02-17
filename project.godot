@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "CD_Effect",
+"language": "GDScript",
+"path": "res://scenes/chat/effects/client_dynamic/cd_template.gd"
+}, {
 "base": "MarginContainer",
 "class": "Character",
 "language": "GDScript",
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://scenes/chat/effects/text_static/ts_shake.gd"
 } ]
 _global_script_class_icons={
+"CD_Effect": "",
 "Character": "",
 "TD_Effect": "",
 "TD_Type": "",
@@ -57,6 +63,7 @@ config/icon="res://icon.png"
 [autoload]
 
 EffectFactory="*res://scenes/chat/EffectFactory.gd"
+Storage="*res://scenes/chat/Storage.gd"
 
 [rendering]
 

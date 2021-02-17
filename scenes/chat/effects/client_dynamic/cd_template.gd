@@ -1,4 +1,4 @@
-class_name TD_Effect
+class_name CD_Effect
 # All of the effects have to implement these methods
 
 
@@ -10,12 +10,13 @@ func init(params: Dictionary):
 
 
 func instance():
+	# most likely unnecessary
 	pass
 
 
 func apply(delta: float):
-	# this method should execute character logic, may be ran more than once in loop
-	# if run_once returned true, the return value of this 
+	# may be ran more than once, returns true if the effect has completed and
+	# can be removed
 	pass
 
 

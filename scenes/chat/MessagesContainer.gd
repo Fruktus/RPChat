@@ -10,15 +10,18 @@ var message_playing = false
 signal message_added
 
 
+
 func _ready() -> void:
 	generate_mock_messages()
+
 
 func generate_mock_messages():
 	# temporary, testing only
 	var file = File.new()
-	file.open('res://test.txt',file.READ)
+	file.open('res://examples/story1/test.txt',file.READ)
 	while not file.eof_reached():
 		add_message(file.get_line())
+
 
 func add_message(text: String):
 	var message = preload("res://scenes/chat/assets/Message.tscn").instance()
@@ -32,6 +35,7 @@ func add_message(text: String):
 		emit_signal("message_added")
 	else:
 		queued_messages.append(message)
+
 
 # for later, when messages will be properly ordered
 # not meant to be called directly
