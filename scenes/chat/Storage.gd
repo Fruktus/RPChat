@@ -19,7 +19,7 @@ func data_directory_set(path):
 func list_files_in_directory(path):
 	var files = []
 	var dir = Directory.new()
-	dir.open(path)
+	dir.open(path + '/data')
 	dir.list_dir_begin()
 
 	while true:
