@@ -72,6 +72,10 @@ EffectFactory="*res://scenes/chat/EffectFactory.gd"
 Storage="*res://scenes/chat/Storage.gd"
 Parser="*res://scenes/chat/Parser.gd"
 
+[display]
+
+window/handheld/orientation="sensor"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

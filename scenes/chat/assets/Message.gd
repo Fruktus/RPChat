@@ -7,6 +7,7 @@ var current_effect: int = -1
 var current_character_idx = 0
 
 signal finished_playing
+signal cd_effect(effect)
 
 
 func _ready() -> void:
@@ -58,6 +59,8 @@ func update_settings(tag):
 		elif effect is TD_Effect:
 			self.td_effects.append(effect)  # FIXME this will make overwriting existing effects hard to handle
 			self.current_effect = len(self.td_effects) - 1
+		elif effect is CD_Effect:
+			emit_signal("cd_effect", effect)
 
 
 func _apply_effects(delta: float):

@@ -18,13 +18,15 @@ func _ready() -> void:
 func generate_mock_messages():
 	# temporary, testing only
 	var file = File.new()
-	file.open('res://examples/story1/test.txt',file.READ)
-	while not file.eof_reached():
-		add_message(file.get_line())
+	if file.file_exists('res://examples/story1/test.txt'):
+		file.open('res://examples/story1/test.txt',file.READ)
+		while not file.eof_reached():
+			add_message(file.get_line())
 
 
 func add_message(text: String):
 	var message = preload("res://scenes/chat/assets/Message.tscn").instance()
+	message.connect("cd_effect", get_node(@"/root/Chat/CLEffectDispatcher"), "on_effect")
 	message.init(text)
 	
 	if not message_playing:
