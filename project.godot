@@ -48,6 +48,11 @@ _global_script_classes=[ {
 "class": "TS_Shake",
 "language": "GDScript",
 "path": "res://scenes/chat/effects/text_static/ts_shake.gd"
+}, {
+"base": "TS_Effect",
+"class": "TS_Wave",
+"language": "GDScript",
+"path": "res://scenes/chat/effects/text_static/ts_wave.gd"
 } ]
 _global_script_class_icons={
 "CD_BGM": "",
@@ -57,7 +62,8 @@ _global_script_class_icons={
 "TD_Type": "",
 "TS_Color": "",
 "TS_Effect": "",
-"TS_Shake": ""
+"TS_Shake": "",
+"TS_Wave": ""
 }
 
 [application]
@@ -74,7 +80,7 @@ Parser="*res://scenes/chat/Parser.gd"
 
 [display]
 
-window/handheld/orientation="sensor"
+window/handheld/orientation="portrait"
 
 [rendering]
 

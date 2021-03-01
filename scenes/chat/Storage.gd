@@ -39,7 +39,7 @@ func _load_data():
 	# TODO naming the files will be different depending on the operating mode
 	# (online/offline) - in offline the name is the file name, in online
 	# it will be dependent on server storage style (names containing creator etc.)
-	for file in list_files_in_directory(self.data_directory):  # FIXME in actual deploy there should be no imports in data folders
+	for file in list_files_in_directory(self.data_directory):  # FIXMEFIXME in actual deploy there should be no imports in data folders
 		if file.ends_with(".import"):
 			continue
-		add_resource(file, load(self.data_directory + "/" + str(file)))
+		add_resource(file, load(self.data_directory + "/data/" + str(file)))

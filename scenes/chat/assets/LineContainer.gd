@@ -7,7 +7,7 @@ var elements_in_lines = [0]
 
 
 func _ready() -> void:
-	pass
+	$CharacterContainer.set("custom_constants/separation", 0)
 
 
 func append(element):

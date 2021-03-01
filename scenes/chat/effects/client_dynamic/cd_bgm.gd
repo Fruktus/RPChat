@@ -7,7 +7,9 @@ var bgm: Resource
 func init(params: Dictionary):
 	# param should contain all the parameters that the effect accepts,
 	# but effect should also provide defaults for those and check if params are present
-	self.bgm = params['macros'][0]
+	self.bgm = Storage.get_resource(params['macros'][0])
+	if self.bgm:
+		self.bgm.set_loop(true) 
 
 
 func type():

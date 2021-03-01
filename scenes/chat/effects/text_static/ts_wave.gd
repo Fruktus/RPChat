@@ -1,7 +1,9 @@
 extends TS_Effect
-class_name TS_Shake
+class_name TS_Wave
+# All of the text-static effects have to implement these methods
 
-var pos = Vector2(0,0)
+var x = 0
+var amp = 10
 
 
 
@@ -11,12 +13,16 @@ func init(params: Dictionary):
 	pass
 
 func instance():
-	return self
+	var new_inst = EffectFactory.get_effect('ts_wave')
+	new_inst.amp = self.amp
+	new_inst.x = self.x
+	
+	self.x += 0.1
+	return new_inst
 
 func apply(Character: Character):
 	# this method should execute character logic, may be ran more than once in loop
-	pos = Vector2(rand_range(-1,1), rand_range(-1,1))  # FIXME will override any other position-related effect
-	Character.get_label().set_position(pos)
+	Character.get_label().set_position(Vector2(0, self.amp * sin(OS.get_system_time_msecs() * 0.01 + x)))  # TODO check if best way to get time
 
 
 func run_once():

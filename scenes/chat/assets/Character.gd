@@ -20,7 +20,7 @@ func init_effects(effects: Dictionary):
 	# TODO I should figure out some way to tell which are ran once and which should
 	# be ran all the time
 	for key in effects:
-		var effect = effects[key]
+		var effect = effects[key].instance()
 		
 		if effect.run_once():
 			effect.apply(self)

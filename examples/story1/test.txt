@@ -1,9 +1,9 @@
 scp #023 - {{ ts_color: black}} Black Shuck
 scp #028 - {{ts_shake}}Knowledge
 scp #032 - {{td_type}}Brothers' Bride
-scp #039 - Proboscis Engineers
+scp #039 - {{cd_bgm: bgm.mp3}}Proboscis Engineers
 scp #054 - Water Nymph
-scp #063 - "The World's Best TothBrush"
+scp #063 - {{ts_wave}}"The World's Best TothBrush"
 scp #070 - Iron Wings
 scp #093 - Red Sea Object
 scp #098 - Surgeon Crabs

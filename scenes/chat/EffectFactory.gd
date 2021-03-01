@@ -3,7 +3,9 @@ extends Node
 var effects = {"asd": "Asd",
 				"ts_color": "res://scenes/chat/effects/text_static/ts_color.gd",
 				"ts_shake": "res://scenes/chat/effects/text_static/ts_shake.gd",
+				"ts_wave": "res://scenes/chat/effects/text_static/ts_wave.gd",
 				"td_type": "res://scenes/chat/effects/text_dynamic/td_type.gd",
+				"cd_bgm": "res://scenes/chat/effects/client_dynamic/cd_bgm.gd",
 				"template": "res://lion.gd"}
 
 

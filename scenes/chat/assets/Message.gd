@@ -10,6 +10,7 @@ signal finished_playing
 signal cd_effect(effect)
 
 
+
 func _ready() -> void:
 	set_process(false)
 
