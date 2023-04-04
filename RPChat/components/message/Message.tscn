@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://components/message/Message.gd" type="Script" id=1]
+[ext_resource path="res://components/message/LineContainer.gd" type="Script" id=2]
+
+[node name="Message" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineContainer" type="VBoxContainer" parent="."]
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 1017.0
+offset_bottom = 593.0
+script = ExtResource( 2 )
+
+[node name="CharacterContainer" type="HBoxContainer" parent="LineContainer"]
+offset_right = 1010.0
+theme_override_constants/separation = 0
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]

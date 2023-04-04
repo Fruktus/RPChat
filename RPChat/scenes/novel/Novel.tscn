@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5rfo7cqa0ayd"]
+
+[ext_resource type="PackedScene" path="res://components/main_window/MainWindow.tscn" id="1"]
+
+[node name="Novel" type="PanelContainer"]
+self_modulate = Color(0.607843, 0.607843, 0.607843, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="tmpbg" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="MainWindow" parent="MarginContainer" instance=ExtResource("1")]
+layout_mode = 2

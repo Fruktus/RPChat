@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://components/main_window/ScrollContainer.gd" type="Script" id=1]
+[ext_resource path="res://components/main_window/MainWindow.gd" type="Script" id=2]
+[ext_resource path="res://components/main_window/BGMPlayer.gd" type="Script" id=3]
+[ext_resource path="res://components/effects/CLEffectDispatcher.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// random value generator
+//float rand(vec2 co){
+//    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+//}
+// rand(Vec2(TIME, 0.0))
+
+// test chromatic aberration 1
+uniform float amount = 0.5;
+
+void fragment(){
+	vec4 texture_color = texture(TEXTURE, UV);
+	vec4 color = texture_color;
+
+	float adjusted_amount = amount / 100.0;
+	color.r = texture(TEXTURE, vec2(UV.x + adjusted_amount, UV.y)).r;
+	color.g = texture(TEXTURE, UV).g;
+	color.b = texture(TEXTURE, vec2(UV.x - adjusted_amount, UV.y)).b;
+	COLOR = color;
+}
+
+// move sprite in circles
+//void vertex() {
+//	VERTEX += vec2(cos(TIME)*100.0, sin(TIME)*100.0);
+//}
+
+// scale sprite
+//void vertex() {
+//	VERTEX *= 2.0;
+//}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/amount = 0.2
+
+[node name="MainWindow" type="PanelContainer"]
+self_modulate = Color( 0.835294, 0.835294, 0.835294, 0.607843 )
+offset_right = 1010.0
+offset_bottom = 544.0
+size_flags_horizontal = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CLEffectDispatcher" parent="." instance=ExtResource( 4 )]
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 3 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 1003.0
+offset_bottom = 537.0
+focus_mode = 1
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+
+[node name="MessageContainer" type="VBoxContainer" parent="ScrollContainer"]
+offset_right = 996.0
+offset_bottom = 530.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MockMessageLabel" type="Label" parent="ScrollContainer/MessageContainer"]
+material = SubResource( 2 )
+offset_right = 996.0
+offset_bottom = 14.0
+text = "testmessage (label)"
+
+[connection signal="message_added" from="." to="ScrollContainer" method="_on_message_added"]
+[connection signal="audio_effect" from="CLEffectDispatcher" to="BGMPlayer" method="on_effect"]

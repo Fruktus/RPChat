@@ -1,11 +1,11 @@
-# RPGC-Client [![version](https://img.shields.io/badge/version-pre--alpha-red)]()
-Client part of RPGChat project, server available [here](https://github.com/Fruktus/RPGC-Server). Built with Godot Engine.
+# RPChat [![version](https://img.shields.io/badge/version-pre--alpha-red)]()
+Client part of RPChat project, server available [here](https://github.com/Fruktus/RPGC-Server). Built with Godot Engine.
 
 ## Installation and running
 Not yet available.
 
-## RPGChat Project
-RPGChat is a messaging app with heavy emphasis on visual effects and overall immersion, built with role-playing games 
+## RPChat Project
+RPChat is a messaging app with heavy emphasis on visual effects and overall immersion, built with role-playing games 
 and visual novels in mind.
 
 ### Goals
