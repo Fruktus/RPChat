@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0qjxtid53wis"]
+
+[ext_resource type="Script" path="res://components/message/Character.gd" id="2"]
+
+[node name="Character" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("2")
+
+[node name="DBGRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+color = Color(1, 0, 1, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2

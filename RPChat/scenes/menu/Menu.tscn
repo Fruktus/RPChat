@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://jtuj3pgsh3cr"]
+
+[ext_resource type="Script" path="res://scenes/menu/ExampleStoriesList.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/menu/LaunchButton.gd" id="2"]
+
+[node name="Main" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "RPGChat"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayOnlineButton" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Connect to server"
+
+[node name="PlayLocalButton" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play Local Story"
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+
+[node name="Saved Stories" type="PanelContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Example Stories" type="PanelContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Example Stories"]
+layout_mode = 2
+
+[node name="ExampleStoriesList" type="ItemList" parent="TabContainer/Example Stories/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Example Stories/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="TabContainer/Example Stories/VBoxContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(1, 0.811765, 0.811765, 1)
+layout_mode = 2
+text = "Cancel"
+
+[node name="LaunchButton" type="Button" parent="TabContainer/Example Stories/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Launch"
+script = ExtResource("2")
+
+[connection signal="item_activated" from="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" to="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" method="on_launch_story"]
+[connection signal="item_selected" from="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" to="TabContainer/Example Stories/VBoxContainer/HBoxContainer/LaunchButton" method="enable_button"]
+[connection signal="pressed" from="TabContainer/Example Stories/VBoxContainer/HBoxContainer/LaunchButton" to="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" method="on_launch_story"]

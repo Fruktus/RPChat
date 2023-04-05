@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnqup21qckuqr"]
+
+[ext_resource type="PackedScene" uid="uid://c6ppfah33w008" path="res://components/main_window/MainWindow.tscn" id="1"]
+[ext_resource type="Theme" uid="uid://cckupb6twi3bd" path="res://assets/ui_theme.tres" id="1_8aoug"]
+[ext_resource type="Script" path="res://scenes/chat/SendButton.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/chat/MessageInput.gd" id="4"]
+
+[node name="Chat" type="PanelContainer"]
+self_modulate = Color(0.607843, 0.607843, 0.607843, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1_8aoug")
+
+[node name="tmpbg" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VSplitContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="tmpplayer" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerList"]
+layout_mode = 2
+text = "andrzej"
+
+[node name="MainWindow" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="MessageEditor" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MessageInput" type="TextEdit" parent="MarginContainer/VBoxContainer/MessageEditor"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4")
+
+[node name="SendButton" type="Button" parent="MarginContainer/VBoxContainer/MessageEditor"]
+layout_mode = 2
+text = "send"
+script = ExtResource("2")
+
+[connection signal="send_button_pressed" from="MarginContainer/VBoxContainer/MessageEditor/SendButton" to="MarginContainer/VBoxContainer/MessageEditor/MessageInput" method="_send_text"]
