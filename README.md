@@ -1,4 +1,12 @@
-# RPChat [![version](https://img.shields.io/badge/version-pre--alpha-red)]()
+# RPChat
+[![platform](https://img.shields.io/badge/godot-4.0.1-blue)](https://godotengine.org/)
+[![release](https://img.shields.io/github/v/release/Fruktus/RPChat?include_prereleases)](https://github.com/Fruktus/RPChat/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Fruktus/RPChat)](https://github.com/Fruktus/RPChat/commits/master)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Fruktus/RPChat)](https://github.com/Fruktus/RPChat/graphs/commit-activity)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/Fruktus/RPChat)](https://github.com/Fruktus/RPChat/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub all releases](https://img.shields.io/github/downloads/Fruktus/RPChat/total)](https://github.com/Fruktus/RPChat/releases)
+
+
 Client part of RPChat project, server available [here](https://github.com/Fruktus/RPGC-Server). Built with Godot Engine.
 
 ## Installation and running
