@@ -2,44 +2,24 @@ extends Node
 
 # All of the effects keywords are located here
 var effects = {
-	"ts_color": "res://components/effects/text_static/ts_color.gd",
-	"ts_shake": "res://components/effects/text_static/ts_shake.gd",
-	"ts_wave": "res://components/effects/text_static/ts_wave.gd",
-	"td_type": "res://components/effects/text_dynamic/td_type.gd",
-	"cd_bgm": "res://components/effects/client_dynamic/cd_bgm.gd",
-	"template": "res://lion.gd"
+	"ts_color": TS_Color,
+	"ts_shake": TS_Shake,
+	"ts_wave": TS_Wave,
+	"td_type": TD_Type,
+	"cd_bgm": CD_BGM,
+	"template": "res://lion.gd"  # No idea what this is
 	}
 
 
 
 func get_effect(effect_name: String):
 	if effect_name in self.effects:
-		var effect_class = load(self.effects[effect_name])
-		var ef = effect_class.new()
-		return effect_class.new()
+#		var effect_class = load()
+		return self.effects[effect_name].new()
 		
 	return null  # FIXME should be done in some nicer way, like return empty or false
 
 # effect(delta: float, params: dict) -> {'completed': bool, 'params': dict}
-
-# # # # # # # # # # # #
-# Text Static Effects #
-# # # # # # # # # # # #
-func ts_wave(params):
-	pass
-
-
-func ts_spread(params):
-	# like shake but not animated
-	pass
-	
-
-func ts_shake(params):
-	pass
-
-
-func ts_color(params):
-	pass
 
 
 # # # # # # # # # # # # #
@@ -58,7 +38,7 @@ func td_typespeed(delta: float, params = {'speed': 1.0, 'time': 0}) -> Dictionar
 		return {'completed': false, 'params': params}
 
 
-func td_typesfx(tone = 1.0):
+func td_typesfx(_tone = 1.0):
 	# TODO technically this should be one-time text-static
 	pass
 

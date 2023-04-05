@@ -7,8 +7,7 @@ var elements_in_lines = [0]
 
 
 func _ready() -> void:
-	$CharacterContainer.set("theme_override_constants/separation", 0)
-
+	$CharacterContainer.add_theme_constant_override("separation", 0)
 
 func append(element):
 	get_child(linecount).add_child(element)
@@ -18,8 +17,7 @@ func append(element):
 
 func newline():
 	var new_hbox = HBoxContainer.new()
-	new_hbox.set("theme_override_constants/separation", 0)
-	add_child(new_hbox)
+	new_hbox.add_theme_constant_override("separation", 0)
 	linecount += 1
 	elements_in_lines.append(0)
 

@@ -1,6 +1,6 @@
 extends Control
 
-
+const line_container_path = "MarginContainer/LineContainer"
 var effects = {}
 var td_effects: Array  # array of funcref
 var current_effect: int = -1
@@ -32,16 +32,16 @@ func init(text: String):
 			var tag =  preload("res://components/tag/Tag.tscn").instantiate()
 			tag.init(token)
 			
-			$LineContainer.append(tag)
+			get_node(line_container_path).append(tag)
 		else:
 			for character in token:
 				if character == '\n':
-					$LineContainer.newline()
+					$MarginContainer/LineContainer.newline()
 					continue
 					
 				var character_container = preload("res://components/message/Character.tscn").instantiate()
 				character_container.set_character(character)
-				$LineContainer.append(character_container)
+				get_node(line_container_path).append(character_container)
 
 
 func update_settings(tag):
@@ -66,8 +66,8 @@ func update_settings(tag):
 
 func _apply_effects(delta: float):
 	# TODO this should be a "while" loop since character_idx needs to be kept
-	while self.current_character_idx < $LineContainer.total_elements:
-		var element = $LineContainer.get_element(self.current_character_idx)
+	while self.current_character_idx < get_node(line_container_path).total_elements:
+		var element = get_node(line_container_path).get_element(self.current_character_idx)
 		
 		# if tag, update effect settings and continue
 		if element.get_class() == "Control":

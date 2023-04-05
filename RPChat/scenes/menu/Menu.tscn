@@ -8,7 +8,12 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.192157, 0.192157, 0.192157, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
@@ -39,6 +44,7 @@ text = "Play Local Story"
 layout_mode = 2
 
 [node name="Saved Stories" type="PanelContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Example Stories" type="PanelContainer" parent="TabContainer"]

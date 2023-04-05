@@ -44,7 +44,6 @@ func _list_data_in_dir(path):
 				folders.append(file_name)
 			else:
 				files.append(file_name)
-				print("Found file: " + file_name)
 			file_name = dir.get_next()
 	
 	return {'files': files, 'folders': folders}
@@ -54,15 +53,16 @@ func _load_story_data():
 	# Loads new game files (story and data), removes previously loaded files
 	_remove_previous_resources()
 	
-	var story = FileAccess.open(self.data_directory + '/story.txt', FileAccess.READ)
-	self.story = story.get_as_text()
+	var story_file = FileAccess.open(self.data_directory + '/story.txt', FileAccess.READ)
+	self.story = story_file.get_as_text()
 	
 	# get all data in directory, subdirectories are ommitted
 	# TODO naming the files will be different depending on the operating mode
 	# (online/offline) - in offline the name is the file name, in online
 	# it will be dependent on server storage style (names containing creator etc.)
 
-	if FileAccess.file_exists(self.data_directory + '/data'):
+	var data_dir = DirAccess.open(self.data_directory + '/data')
+	if data_dir.dir_exists(self.data_directory + '/data'):
 		for file in list_files_in_directory(self.data_directory + '/data'):
 			# FIXME in actual deploy there should be no imports in data folders
 			# TODO add whitelist of known filetypes and only add those
@@ -70,7 +70,7 @@ func _load_story_data():
 				continue
 			
 			self.loaded_resources.append(file)
-			add_resource(file, load(self.data_directory + "/" + str(file)))
+			add_resource(file, load(self.data_directory + "/data/" + str(file)))
 
 
 func _remove_previous_resources():

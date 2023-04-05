@@ -6,7 +6,7 @@ func _ready():
 		self.add_item(item)
 
 
-func on_launch_story():
+func on_launch_story(_idx=null):
 	# The list allows selecting only one entry
 	# and this should never be called if nothing is selected
 	

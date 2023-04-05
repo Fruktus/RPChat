@@ -8,7 +8,7 @@ signal message_added
 
 @onready var message_container = $ScrollContainer/MessageContainer
 @onready var cl_dispatcher = $CLEffectDispatcher
-@onready var mock_message = $ScrollContainer/MessageContainer/MockMessageLabel
+@onready var mock_message = $ScrollContainer/MessageContainer/MockMessage
 
 var queued_messages = []
 var message_playing = false
@@ -68,5 +68,5 @@ func _display_message():
 		message_playing = false
 
 
-func on_effect(effect):
+func on_effect(_effect):
 	pass # Replace with function body.

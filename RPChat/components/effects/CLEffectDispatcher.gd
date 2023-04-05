@@ -14,7 +14,6 @@ func _ready():
 
 
 func on_effect(effect: CD_Effect):
-
 	var handler = self.handlers.get(effect.type())
 	
 	if handler:

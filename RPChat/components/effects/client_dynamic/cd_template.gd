@@ -4,7 +4,7 @@ class_name CD_Effect
 enum Type {AUDIO, IMAGE}
 
 
-func init(params: Dictionary):
+func init(_params: Dictionary):
 	# param should contain all the parameters that the effect accepts,
 	# but effect should also provide defaults for those and check if params are present
 	pass
@@ -15,7 +15,7 @@ func type():
 	pass 
 
 
-func apply(delta: float):
+func apply(_delta: float):
 	# may be ran more than once, returns true if the effect has completed and
 	# can be removed
 	pass

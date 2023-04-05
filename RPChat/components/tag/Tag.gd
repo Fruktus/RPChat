@@ -7,5 +7,5 @@ func _ready() -> void:
 	# TODO may not be needed
 	set_process(false)
 
-func init(effects: Dictionary):
-	self.effects = effects
+func init(tag_effects: Dictionary):
+	self.effects = tag_effects

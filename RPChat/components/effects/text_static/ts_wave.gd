@@ -7,15 +7,15 @@ var amp = 10
 
 
 
-func init(params: Dictionary):
+func init(_params: Dictionary):
 	# param should contain all the parameters that the effect accepts,
 	# but effect should also provide defaults for those and check if params are present
 	pass
 
 func instance():
-	var new_inst = EffectFactory.get_effect('ts_wave')
+	var new_inst = TS_Wave.new()
 	new_inst.amp = self.amp
-	new_inst.x = self.x
+	new_inst.x = self.x 
 	
 	self.x += 0.1
 	return new_inst

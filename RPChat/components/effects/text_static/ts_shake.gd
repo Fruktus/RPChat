@@ -5,7 +5,7 @@ var pos = Vector2(0,0)
 
 
 
-func init(params: Dictionary):
+func init(_params: Dictionary):
 	# param should contain all the parameters that the effect accepts,
 	# but effect should also provide defaults for those and check if params are present
 	pass

@@ -1,19 +1,21 @@
+extends MarginContainer
 class_name Character
 
-extends MarginContainer
-
 var active_effects = []
+
 
 
 func _ready() -> void:
 	self.visible = false
 	set_process(false)
 
+
 func enable() -> void:
 	if len(self.active_effects) > 0:
 		set_process(true)
 	self.visible = true
-	
+
+
 func init_effects(effects: Dictionary):
 	# TODO apply all the effects, store them in array
 	# effects should be kept since some of them will require being processed
@@ -21,7 +23,7 @@ func init_effects(effects: Dictionary):
 	# be ran all the time
 	for key in effects:
 #		print(effects[key].can_instantiate())
-		var effect = effects[key]
+		var effect = effects[key].instance()  # This is not Godot's instance kw, but effect's
 		
 		if effect.run_once():
 			effect.apply(self)
@@ -40,6 +42,6 @@ func set_character(text):
 	$Label.text = text
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for effect in self.active_effects:
 		effect.apply(self)

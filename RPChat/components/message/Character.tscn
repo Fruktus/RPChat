@@ -1,21 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://d0qjxtid53wis"]
 
-[ext_resource path="res://scenes/chat/assets/tmptext.gd" type="Script" id=1]
-[ext_resource path="res://components/message/Character.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://components/message/Character.gd" id="2"]
 
 [node name="Character" type="MarginContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("2")
+
+[node name="DBGRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+color = Color(1, 0, 1, 1)
 
 [node name="Label" type="Label" parent="."]
-offset_top = 293.0
-offset_right = 1024.0
-offset_bottom = 307.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 2

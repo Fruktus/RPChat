@@ -1,9 +1,8 @@
-extends Resource
 class_name TS_Effect
 # All of the text-static effects have to implement these methods
 
 
-func init(params: Dictionary):
+func init(_params: Dictionary):
 	# param should contain all the parameters that the effect accepts,
 	# but effect should also provide defaults for those and check if params are present
 	pass
@@ -11,7 +10,7 @@ func init(params: Dictionary):
 func instance():
 	pass
 
-func apply(Character: Character):
+func apply(_Character: Character):
 	# this method should execute character logic, may be ran more than once in loop
 	pass
 
