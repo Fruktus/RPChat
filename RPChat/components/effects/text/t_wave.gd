@@ -1,5 +1,5 @@
-extends TS_Effect
-class_name TS_Wave
+extends T_Effect
+class_name T_Wave
 # All of the text-static effects have to implement these methods
 
 var x = 0
@@ -13,7 +13,7 @@ func init(_params: Dictionary):
 	pass
 
 func instance():
-	var new_inst = TS_Wave.new()
+	var new_inst = T_Wave.new()
 	new_inst.amp = self.amp
 	new_inst.x = self.x 
 	

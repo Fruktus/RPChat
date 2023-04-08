@@ -1,4 +1,4 @@
-class_name CD_Effect
+class_name C_Effect
 # All of the effects have to implement these methods
 
 enum Type {AUDIO, IMAGE}

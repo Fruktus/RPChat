@@ -1,14 +1,13 @@
 extends Control
 
+signal finished_playing
+signal c_effect(effect)
+
 const line_container_path = "MarginContainer/LineContainer"
 var effects = {}
-var td_effects: Array  # array of funcref
+var m_effects: Array  # array of funcref
 var current_effect: int = -1
 var current_character_idx = 0
-
-signal finished_playing
-signal cd_effect(effect)
-
 
 
 func _ready() -> void:
@@ -55,13 +54,13 @@ func update_settings(tag):
 		var effect = EffectFactory.get_effect(key)
 		effect.init(tag.effects[key])
 		
-		if effect is TS_Effect:
+		if effect is T_Effect:
 			self.effects[key] = effect
-		elif effect is TD_Effect:
-			self.td_effects.append(effect)  # FIXME this will make overwriting existing effects hard to handle
-			self.current_effect = len(self.td_effects) - 1
-		elif effect is CD_Effect:
-			emit_signal("cd_effect", effect)
+		elif effect is M_Effect:
+			self.m_effects.append(effect)  # FIXME this will make overwriting existing effects hard to handle
+			self.current_effect = len(self.m_effects) - 1
+		elif effect is C_Effect:
+			emit_signal("c_effect", effect)
 
 
 func _apply_effects(delta: float):
@@ -75,17 +74,17 @@ func _apply_effects(delta: float):
 		else:
 			# apply dynamic effects
 			while current_effect >= 0:
-				var completed = self.td_effects[current_effect].apply(delta)
+				var completed = self.m_effects[current_effect].apply(delta)
 				if not completed:
 					return
-				if self.td_effects[current_effect].run_once():
-					self.td_effects.erase(current_effect)
+				if self.m_effects[current_effect].run_once():
+					self.m_effects.erase(current_effect)
 				current_effect -= 1
 
 			# apply static effects
 			element.init_effects(effects)  # TODO right now uses global effects var,
 			element.enable()
-			current_effect = len(self.td_effects) - 1
+			current_effect = len(self.m_effects) - 1
 		self.current_character_idx += 1
 	emit_signal("finished_playing")
 	set_process(false)

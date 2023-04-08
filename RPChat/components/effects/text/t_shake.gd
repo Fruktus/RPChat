@@ -1,5 +1,5 @@
-extends TS_Effect
-class_name TS_Shake
+extends T_Effect
+class_name T_Shake
 
 var pos = Vector2(0,0)
 
