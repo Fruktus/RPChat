@@ -75,8 +75,6 @@ func _load_story_data():
 			if file.ends_with(".import"):
 				continue
 			
-			print(file)
-			
 			self.loaded_resources.append(file)
 			add_resource(file, load(self.data_directory + "/data/" + str(file)))
 
