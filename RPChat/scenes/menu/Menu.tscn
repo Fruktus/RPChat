@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://jtuj3pgsh3cr"]
+[gd_scene load_steps=5 format=3 uid="uid://jtuj3pgsh3cr"]
 
 [ext_resource type="Script" path="res://scenes/menu/ExampleStoriesList.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/menu/LoadCustomButton.gd" id="1_ja4ey"]
 [ext_resource type="Script" path="res://scenes/menu/LaunchButton.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/menu/LoadFromDirDialog.gd" id="4_dk85p"]
 
 [node name="Main" type="PanelContainer"]
 anchors_preset = 15
@@ -12,31 +14,31 @@ anchor_bottom = 1.0
 layout_mode = 2
 color = Color(0.192157, 0.192157, 0.192157, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PlayModeContainer" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="PlayModeContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PlayModeContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayModeContainer/CenterContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PlayModeContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "RPGChat"
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="PlayModeContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlayOnlineButton" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="PlayOnlineButton" type="Button" parent="PlayModeContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Connect to server"
 
-[node name="PlayLocalButton" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="PlayLocalButton" type="Button" parent="PlayModeContainer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Play Local Story"
 
@@ -44,8 +46,42 @@ text = "Play Local Story"
 layout_mode = 2
 
 [node name="Saved Stories" type="PanelContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Saved Stories"]
+layout_mode = 2
+
+[node name="SavedStoriesList" type="ItemList" parent="TabContainer/Saved Stories/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="TabContainer/Saved Stories/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Saved Stories/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="LoadCustomButton" type="Button" parent="TabContainer/Saved Stories/VBoxContainer/ButtonsContainer/HBoxContainer"]
+layout_mode = 2
+text = "Load From Directory"
+script = ExtResource("1_ja4ey")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Saved Stories/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="TabContainer/Saved Stories/VBoxContainer/ButtonsContainer/HBoxContainer2"]
+visible = false
+self_modulate = Color(1, 0.811765, 0.811765, 1)
+layout_mode = 2
+text = "Cancel"
+
+[node name="LaunchButton" type="Button" parent="TabContainer/Saved Stories/VBoxContainer/ButtonsContainer/HBoxContainer2"]
+layout_mode = 2
+disabled = true
+text = "Launch"
 
 [node name="Example Stories" type="PanelContainer" parent="TabContainer"]
 visible = false
@@ -75,6 +111,20 @@ disabled = true
 text = "Launch"
 script = ExtResource("2")
 
+[node name="LoadFromDirDialog" type="FileDialog" parent="."]
+initial_position = 2
+title = "Open a Directory"
+size = Vector2i(452, 400)
+always_on_top = true
+popup_window = true
+min_size = Vector2i(200, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+script = ExtResource("4_dk85p")
+
+[connection signal="pressed" from="TabContainer/Saved Stories/VBoxContainer/ButtonsContainer/HBoxContainer/LoadCustomButton" to="TabContainer/Saved Stories/VBoxContainer/ButtonsContainer/HBoxContainer/LoadCustomButton" method="on_click"]
 [connection signal="item_activated" from="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" to="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" method="on_launch_story"]
 [connection signal="item_selected" from="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" to="TabContainer/Example Stories/VBoxContainer/HBoxContainer/LaunchButton" method="enable_button"]
 [connection signal="pressed" from="TabContainer/Example Stories/VBoxContainer/HBoxContainer/LaunchButton" to="TabContainer/Example Stories/VBoxContainer/ExampleStoriesList" method="on_launch_story"]
+[connection signal="dir_selected" from="LoadFromDirDialog" to="LoadFromDirDialog" method="_on_dir_selected"]
