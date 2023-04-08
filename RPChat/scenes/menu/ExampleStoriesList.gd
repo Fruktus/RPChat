@@ -12,4 +12,6 @@ func on_launch_story(_idx=null):
 	
 	var story = self.get_item_text(self.get_selected_items()[0])
 	Storage.set_data_directory("res://examples/" + story)
-	get_tree().change_scene_to_file("res://scenes/novel/Novel.tscn")
+	if Storage.story_loaded:
+		get_tree().change_scene_to_file("res://scenes/novel/Novel.tscn")
+	# TODO else error

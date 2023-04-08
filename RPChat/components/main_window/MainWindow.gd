@@ -18,7 +18,7 @@ var message_playing = false
 
 func _ready() -> void:
 	mock_message.visible = false
-	if Storage.story == '':
+	if not Storage.story_loaded:
 		generate_mock_messages()
 	else:
 		# TODO figure out how to process the story
