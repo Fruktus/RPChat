@@ -42,7 +42,7 @@ func generate_mock_messages():
 
 func add_message(text: String):
 	var message = preload("res://components/message/Message.tscn").instantiate()
-	message.connect("cd_effect", Callable(cl_dispatcher, "on_effect"))
+	message.connect("c_effect", Callable(cl_dispatcher, "on_effect"))
 	message.init(text)
 	
 	if not message_playing:

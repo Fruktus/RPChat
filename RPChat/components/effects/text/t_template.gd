@@ -1,4 +1,4 @@
-class_name TS_Effect
+class_name T_Effect
 # All of the text-static effects have to implement these methods
 
 

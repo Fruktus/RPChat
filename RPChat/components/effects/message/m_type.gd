@@ -1,5 +1,5 @@
-extends TD_Effect
-class_name TD_Type
+extends M_Effect
+class_name M_Type
 # All of the effects have to implement these methods
 
 var time_to_pause = 0.1

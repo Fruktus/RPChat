@@ -1,5 +1,5 @@
-extends CD_Effect
-class_name CD_BGM
+extends C_Effect
+class_name C_BGM
 # All of the effects have to implement these methods
 
 var bgm: Resource

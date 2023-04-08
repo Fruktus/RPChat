@@ -2,11 +2,12 @@ extends Node
 
 # All of the effects keywords are located here
 var effects = {
-	"ts_color": TS_Color,
-	"ts_shake": TS_Shake,
-	"ts_wave": TS_Wave,
-	"td_type": TD_Type,
-	"cd_bgm": CD_BGM,
+	"t_color": T_Color,
+	"t_shake": T_Shake,
+	"t_wave": T_Wave,
+	"m_type": M_Type,
+	"m_pause": M_Pause,
+	"c_bgm": C_BGM,
 	"template": "res://lion.gd"  # No idea what this is
 	}
 

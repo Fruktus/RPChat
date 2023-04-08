@@ -1,4 +1,4 @@
-class_name TD_Effect
+class_name M_Effect
 # All of the effects have to implement these methods
 
 

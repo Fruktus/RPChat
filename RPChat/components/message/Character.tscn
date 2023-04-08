@@ -17,5 +17,12 @@ visible = false
 layout_mode = 2
 color = Color(1, 0, 1, 1)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="RichTextLabel" parent="."]
 layout_mode = 2
+size_flags_vertical = 4
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+meta_underlined = false
+hint_underlined = false
