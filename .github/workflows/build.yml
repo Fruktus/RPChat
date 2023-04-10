@@ -25,12 +25,16 @@ jobs:
       uses: firebelley/godot-export@v5.0.0
       with:
         # Defining all the required inputs
-        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0.1/Godot_v4.0.1-stable_linux.x86_64.zip
-        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0.1/Godot_v4.0.1-stable_export_templates.tpz
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0.2/Godot_v4.0.2-stable_linux.x86_64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0.2/Godot_v4.0.2-stable_export_templates.tpz
         
         export_debug: true
         relative_project_path: ./RPChat
         archive_output: true
+
+    - name: add artifact version
+      id: version
+      run: for file in ${{ steps.export.outputs.archive_directory }}/*; do mv "$file" "${file/.zip/_${{ github.ref_name }}.zip}"; done
 
       # This release action has worked well for me. However, you can most likely use any release action of your choosing.
       # https://github.com/ncipollo/release-action
