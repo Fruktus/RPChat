@@ -28,6 +28,7 @@ jobs:
         godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0.1/Godot_v4.0.1-stable_linux.x86_64.zip
         godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0.1/Godot_v4.0.1-stable_export_templates.tpz
         
+        export_debug: true
         relative_project_path: ./RPChat
         archive_output: true
 
