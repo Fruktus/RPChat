@@ -70,13 +70,18 @@ func _load_story_data():
 	var data_dir = DirAccess.open(self.data_directory + '/data')
 	if data_dir:
 		for file in list_files_in_directory(self.data_directory + '/data'):
-			# FIXME in actual deploy there should be no imports in data folders
 			# TODO add whitelist of known filetypes and only add those
 			if file.ends_with(".import"):
+				var imported_file = file.trim_suffix('.import')
+				var imported_path = self.data_directory + '/data/' + imported_file
+				if ResourceLoader.exists(imported_path) and not self.has_resource(imported_file):
+					self.loaded_resources.append(imported_file)
+					add_resource(imported_file, ResourceLoader.load(imported_path))
 				continue
 			
-			self.loaded_resources.append(file)
-			add_resource(file, load(self.data_directory + "/data/" + str(file)))
+			if not self.has_resource(file):
+				self.loaded_resources.append(file)
+				add_resource(file, load(self.data_directory + "/data/" + str(file)))
 
 
 func _remove_previous_resources():
