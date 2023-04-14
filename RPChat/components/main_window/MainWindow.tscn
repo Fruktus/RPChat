@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://components/main_window/MainWindow.gd" id="2"]
 [ext_resource type="Script" path="res://components/main_window/BGMPlayer.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://copkuapajcely" path="res://components/effects/CLEffectDispatcher.tscn" id="4"]
-[ext_resource type="Theme" uid="uid://cckupb6twi3bd" path="res://assets/ui_theme.tres" id="5_44an3"]
+[ext_resource type="Theme" uid="uid://cmli2eyr3jvqm" path="res://assets/message_theme.tres" id="5_f8fqr"]
 
 [node name="MainWindow" type="PanelContainer"]
 self_modulate = Color(0.835294, 0.835294, 0.835294, 0.607843)
@@ -32,7 +32,7 @@ size_flags_vertical = 3
 [node name="MockMessage" type="PanelContainer" parent="ScrollContainer/MessageContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("5_44an3")
+theme = ExtResource("5_f8fqr")
 theme_type_variation = &"MessagePanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/MessageContainer/MockMessage"]

@@ -23,6 +23,7 @@ Parser="*res://components/parser/Parser.gd"
 
 [display]
 
+window/size/transparent=true
 window/handheld/orientation="portrait"
 
 [rendering]
