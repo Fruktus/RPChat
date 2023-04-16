@@ -1,7 +1,7 @@
 class_name C_Effect
 # All of the effects have to implement these methods
 
-enum Type {AUDIO, IMAGE}
+enum Type {AUDIO, IMAGE, MESSAGE, CLIENT}
 
 
 func init(_params: Dictionary):
@@ -15,9 +15,11 @@ func type():
 	pass 
 
 
-func apply(_delta: float):
-	# may be ran more than once, returns true if the effect has completed and
-	# can be removed
+func apply(object: Node):
+	# the object is dependent on effect type
+	# the object is element of chat window responsible for handling given effect type
+	# such as AudioStreamPlayer or TextureRect.
+	# The effect should know which type it wants and how to work with it
 	pass
 
 

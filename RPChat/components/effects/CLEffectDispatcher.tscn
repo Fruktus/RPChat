@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://copkuapajcely"]
-
-[ext_resource type="Script" path="res://components/effects/CLEffectDispatcher.gd" id="1"]
-
-[node name="CLEffectDispatcher" type="Node"]
-script = ExtResource("1")

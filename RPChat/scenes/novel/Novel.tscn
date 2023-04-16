@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c5rfo7cqa0ayd"]
 
-[ext_resource type="PackedScene" uid="uid://c6ppfah33w008" path="res://components/main_window/MainWindow.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://crcoj6wydl0na" path="res://components/main_window/MainWindow.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://cckupb6twi3bd" path="res://assets/ui_theme.tres" id="1_mbijf"]
 
 [node name="Novel" type="PanelContainer"]

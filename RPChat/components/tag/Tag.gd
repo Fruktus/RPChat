@@ -1,4 +1,5 @@
 extends Control
+class_name Tag
 
 var effects: Dictionary
 

@@ -1,10 +1,11 @@
 extends Control
+class_name Message
 
 signal finished_playing
 signal c_effect(effect)
 
 const line_container_path = "MarginContainer/LineContainer"
-var effects = {}
+var t_effects = {}
 var m_effects: Array  # array of funcref
 var current_effect: int = -1
 var current_character_idx = 0
@@ -28,7 +29,7 @@ func init(text: String):
 	
 	for token in parsed_message_array:
 		if token is Dictionary:
-			var tag =  preload("res://components/tag/Tag.tscn").instantiate()
+			var tag = preload("res://components/tag/Tag.tscn").instantiate()
 			tag.init(token)
 			
 			get_node(line_container_path).append(tag)
@@ -45,21 +46,24 @@ func init(text: String):
 
 func update_settings(tag):
 	# updates current effect settings that will be applied to the message
-	
+
 	for key in tag.effects:
 		if 'none' in tag.effects[key]['macros']:
-			self.effects.erase(key)
+			self.t_effects.erase(key)
+			self.m_effects.erase(key)
 			continue
 		
 		var effect = EffectFactory.get_effect(key)
-		effect.init(tag.effects[key])
-		
+
 		if effect is T_Effect:
-			self.effects[key] = effect
+			effect.init(tag.effects[key])
+			self.t_effects[key] = effect
 		elif effect is M_Effect:
+			effect.init(tag.effects[key], self)
 			self.m_effects.append(effect)  # FIXME this will make overwriting existing effects hard to handle
 			self.current_effect = len(self.m_effects) - 1
 		elif effect is C_Effect:
+			effect.init(tag.effects[key])
 			emit_signal("c_effect", effect)
 
 
@@ -69,7 +73,7 @@ func _apply_effects(delta: float):
 		var element = get_node(line_container_path).get_element(self.current_character_idx)
 		
 		# if tag, update effect settings and continue
-		if element.get_class() == "Control":
+		if element is Tag:
 			update_settings(element)
 		else:
 			# apply dynamic effects
@@ -82,7 +86,7 @@ func _apply_effects(delta: float):
 				current_effect -= 1
 
 			# apply static effects
-			element.init_effects(effects)  # TODO right now uses global effects var,
+			element.init_effects(self.t_effects)  # TODO right now uses global effects var,
 			element.enable()
 			current_effect = len(self.m_effects) - 1
 		self.current_character_idx += 1

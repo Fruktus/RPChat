@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6ppfah33w008"]
+[gd_scene load_steps=6 format=3 uid="uid://crcoj6wydl0na"]
 
 [ext_resource type="Script" path="res://components/main_window/ScrollContainer.gd" id="1"]
 [ext_resource type="Script" path="res://components/main_window/MainWindow.gd" id="2"]
 [ext_resource type="Script" path="res://components/main_window/BGMPlayer.gd" id="3"]
-[ext_resource type="PackedScene" uid="uid://copkuapajcely" path="res://components/effects/CLEffectDispatcher.tscn" id="4"]
-[ext_resource type="Theme" uid="uid://cmli2eyr3jvqm" path="res://assets/message_theme.tres" id="5_f8fqr"]
+[ext_resource type="PackedScene" path="res://components/main_window/CLEffectDispatcher.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://rx5ph8p86qfi" path="res://components/main_window/MockMessage.tscn" id="5_e3daq"]
 
 [node name="MainWindow" type="PanelContainer"]
 self_modulate = Color(0.835294, 0.835294, 0.835294, 0.607843)
@@ -18,6 +18,9 @@ script = ExtResource("2")
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("3")
 
+[node name="BGImage" type="TextureRect" parent="."]
+layout_mode = 2
+
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -29,69 +32,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MockMessage" type="PanelContainer" parent="ScrollContainer/MessageContainer"]
+[node name="MockMessage" parent="ScrollContainer/MessageContainer" instance=ExtResource("5_e3daq")]
 layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("5_f8fqr")
-theme_type_variation = &"MessagePanel"
-
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/MessageContainer/MockMessage"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Label" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "t"
-
-[node name="Label2" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "e"
-
-[node name="Label3" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "s"
-
-[node name="Label4" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "t"
-
-[node name="Label5" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = " "
-
-[node name="Label6" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "m"
-
-[node name="Label7" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "e"
-
-[node name="Label8" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "s"
-
-[node name="Label9" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "s"
-
-[node name="Label10" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "a"
-
-[node name="Label11" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "g"
-
-[node name="Label12" type="Label" parent="ScrollContainer/MessageContainer/MockMessage/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "e"
 
 [connection signal="message_added" from="." to="ScrollContainer" method="_on_message_added"]
-[connection signal="audio_effect" from="CLEffectDispatcher" to="BGMPlayer" method="on_effect"]
