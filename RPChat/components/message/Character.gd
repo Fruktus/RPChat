@@ -29,9 +29,6 @@ func init_effects(effects: Dictionary):
 			effect.apply(self)
 		else:
 			self.active_effects.append(effect)
-		
-#	if 'color' in effects:
-#		$Label.add_color_override("font_color", ColorN(effects['color']))
 
 
 func get_label():

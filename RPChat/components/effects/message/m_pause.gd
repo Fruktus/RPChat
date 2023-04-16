@@ -7,7 +7,7 @@ var _time_paused = 0.0
 
 
 
-func init(params: Dictionary):
+func init(params: Dictionary, _message: Message):
 	if params['macros']:
 		self.time_to_pause = float(params['macros'][0])
 	# param should contain all the parameters that the effect accepts,
@@ -21,7 +21,6 @@ func instance():  # TODO probably won't be needed
 func apply(delta: float):
 	self._time_paused += delta
 	if self._time_paused > self.time_to_pause:
-		self._time_paused = 0.0
 		return true
 	return false
 

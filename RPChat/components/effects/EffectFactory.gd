@@ -7,7 +7,9 @@ var effects = {
 	"t_wave": T_Wave,
 	"m_type": M_Type,
 	"m_pause": M_Pause,
+	"m_fadein": M_Fadein,
 	"c_bgm": C_BGM,
+	"c_singlemsg": C_Singlemsg,
 	"template": "res://lion.gd"  # No idea what this is
 	}
 

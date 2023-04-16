@@ -3,3 +3,4 @@
 {{m_type}}This text should type one by one
 {{c_bgm: Synthwest.mp3}}This text has bgm and pauses at the end{{m_pause}}
 {{t_wave}}This text is wavy
+This text fades in{{m_fadein: 1}}

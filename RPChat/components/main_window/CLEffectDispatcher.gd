@@ -1,10 +1,11 @@
 extends Node
 
+signal audio_effect(effect)
+signal bg_effect(effect)
+
 var handlers = {C_Effect.Type.AUDIO: "audio_effect",
 				C_Effect.Type.IMAGE: "bg_effect"}
 
-signal audio_effect(effect)
-signal bg_effect(effect)
 
 
 func _ready():
@@ -14,6 +15,7 @@ func _ready():
 
 
 func on_effect(effect: C_Effect):
+	# Called from Message, dispatches the effects based on type through signal
 	var handler = self.handlers.get(effect.type())
 	
 	if handler:
