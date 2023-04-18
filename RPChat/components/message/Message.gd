@@ -4,7 +4,9 @@ class_name Message
 signal finished_playing
 signal c_effect(effect)
 
-const line_container_path = "MarginContainer/LineContainer"
+@onready var line_container = $MarginContainer/LineContainer
+
+var parsed_text: Array
 var t_effects = {}
 var m_effects: Array  # array of funcref
 var current_effect: int = -1
@@ -13,6 +15,7 @@ var current_character_idx = 0
 
 func _ready() -> void:
 	set_process(false)
+	self._init()
 
 # every message will be self-contained parsing-wise, as in at first you pass ALL
 # the parameters needed to format stuff and at the end everything gets reset (to think about, maybe change)
@@ -21,27 +24,26 @@ func _ready() -> void:
 # are ON CHANGE sent through signal. On change is important since the client should not
 # modify its settings unless ordered, like its layout (because message styles need to be re-set everytime)
 
-
-
 func init(text: String):
 	# takes raw text and builds message objects composed of characters and effects tags
-	var parsed_message_array = Parser.parse_message(text)
-	
-	for token in parsed_message_array:
+	self.parsed_text = Parser.parse_message(text)
+
+func _init():
+	for token in self.parsed_text:
 		if token is Dictionary:
 			var tag = preload("res://components/tag/Tag.tscn").instantiate()
 			tag.init(token)
 			
-			get_node(line_container_path).append(tag)
+			line_container.append(tag)
 		else:
 			for character in token:
 				if character == '\n':
-					$MarginContainer/LineContainer.newline()
+					line_container.newline()
 					continue
 					
 				var character_container = preload("res://components/message/Character.tscn").instantiate()
 				character_container.set_character(character)
-				get_node(line_container_path).append(character_container)
+				line_container.append(character_container)
 
 
 func update_settings(tag):
@@ -69,8 +71,8 @@ func update_settings(tag):
 
 func _apply_effects(delta: float):
 	# TODO this should be a "while" loop since character_idx needs to be kept
-	while self.current_character_idx < get_node(line_container_path).total_elements:
-		var element = get_node(line_container_path).get_element(self.current_character_idx)
+	while self.current_character_idx < line_container.total_elements:
+		var element = line_container.get_element(self.current_character_idx)
 		
 		# if tag, update effect settings and continue
 		if element is Tag:

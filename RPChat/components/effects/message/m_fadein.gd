@@ -13,7 +13,7 @@ var _message: Message
 func init(params: Dictionary, message: Message):
 	self._message = message
 	self._message.modulate.a = 0
-	
+
 	if params['macros']:
 		self._duration = float(params['macros'][0])
 	# param should contain all the parameters that the effect accepts,
@@ -27,7 +27,7 @@ func instance():  # TODO probably won't be needed
 func apply(delta: float):
 	self._time_running += delta
 	self._message.modulate.a += delta * (1.0/self._duration)
-	
+
 	if self._time_running > self._duration:
 		return true
 	return false

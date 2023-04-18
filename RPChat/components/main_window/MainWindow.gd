@@ -5,6 +5,7 @@ extends PanelContainer
 # signal from the one just showed that it finished playing (important for the animated ones)
 
 signal message_added
+signal user_interaction  # Emitted when user clicks or keypresses the window
 
 @onready var message_container = $ScrollContainer/MessageContainer
 @onready var cl_dispatcher = $CLEffectDispatcher
@@ -18,7 +19,7 @@ var c_effects = []  # For the effects that get applied continuously
 
 
 func _ready() -> void:
-	self._clear_messages()
+	self.clear_messages()
 
 	if not Storage.story_loaded:
 		generate_mock_messages()
@@ -28,18 +29,14 @@ func _ready() -> void:
 		# like in mp context, so maybe add novel-specific method "process_novel"
 		# which would have additional parser or smth, like normal effect parsing, but
 		# with markers like {{next}} for dividing messages
-		var lines = Storage.story.split('\n')
-		for line in lines:
-			add_message(line)
+		self._load_messages_from_string(Storage.story)
+
 
 func generate_mock_messages():
 	# Reads the demo story and loads it. The demo is meant to show all effects and can be used for testing
 	Storage.set_data_directory("res://examples/demo")
 	var story = FileAccess.open('res://examples/demo/story.txt', FileAccess.READ)
-	var lines = story.get_as_text().split('\n')
-	
-	for line in lines:
-		add_message(line)
+	self._load_messages_from_string(story.get_as_text())
 
 
 func add_message(text: String):
@@ -53,6 +50,13 @@ func add_message(text: String):
 		self._play_message(message)
 	else:
 		queued_messages.append(message)
+
+
+func clear_messages():
+	# Removes all messages currently added
+	for child in message_container.get_children():
+		message_container.remove_child(child)
+		child.queue_free()
 
 
 func on_effect(effect: C_Effect):
@@ -77,6 +81,30 @@ func on_effect(effect: C_Effect):
 		C_Effect.Type.CLIENT:
 			self.c_effects.append(effect)
 
+
+func on_interaction():
+	pass
+
+
+#func _gui_input(event):
+#	print('guiinput', event)
+#
+#func _input(event):
+#	print('input', event)
+
+func _load_messages_from_string(story: String):
+	var lines = story.split('\n')
+	var message = ''
+	
+	for line_idx in range(len(lines)):
+		if lines[line_idx] == '':
+			add_message(message.trim_suffix('\n'))
+			message = ''
+		else:
+			message += lines[line_idx] + '\n'
+
+
+
 func _play_message(message):
 	if len(self.c_effects) > 0:
 		for effect in c_effects:
@@ -96,11 +124,3 @@ func _dequeue_next_message():
 		self._play_message(message)
 	else:
 		message_playing = false
-
-
-func _clear_messages():
-	# Removes all messages currently added
-	for child in message_container.get_children():
-		message_container.remove_child(child)
-		child.queue_free()
-
