@@ -4,9 +4,6 @@ extends PanelContainer
 # when message arrives, the container will hold new messages until receiving
 # signal from the one just showed that it finished playing (important for the animated ones)
 
-signal message_added
-signal user_interaction  # Emitted when user clicks or keypresses the window
-
 @onready var message_container = $ScrollContainer/MessageContainer
 @onready var cl_dispatcher = $CLEffectDispatcher
 @onready var bgm_player = $BGMPlayer
@@ -20,18 +17,17 @@ var c_effects = []  # For the effects that get applied continuously
 
 func _ready() -> void:
 	self.clear_messages()
+	EventBus.connect("message_finished_playing", Callable(self, "on_message_finished_playing"))
+	EventBus.connect("client_effect_added", Callable(self, "on_client_effect_added"))
 
 	if not Storage.story_loaded:
 		generate_mock_messages()
 	else:
-		# TODO figure out how to process the story
-		# since this is called in the novel context, there won't be a "message"
-		# like in mp context, so maybe add novel-specific method "process_novel"
-		# which would have additional parser or smth, like normal effect parsing, but
-		# with markers like {{next}} for dividing messages
 		self._load_messages_from_string(Storage.story)
 
-
+# # # # # # # # # # #
+# Public Functions  #
+# # # # # # # # # # #
 func generate_mock_messages():
 	# Reads the demo story and loads it. The demo is meant to show all effects and can be used for testing
 	Storage.set_data_directory("res://examples/demo")
@@ -42,9 +38,8 @@ func generate_mock_messages():
 func add_message(text: String):
 	# Takes the text and parses it into message, adds it to message_container
 	var message = preload("res://components/message/Message.tscn").instantiate()
-	message.connect("c_effect", Callable(self, "on_effect"))
 	message.init(text)
-	
+
 	if not message_playing:
 		message_playing = true
 		self._play_message(message)
@@ -59,7 +54,13 @@ func clear_messages():
 		child.queue_free()
 
 
-func on_effect(effect: C_Effect):
+# # # # # # # # # #
+# Signal Handlers #
+# # # # # # # # # #
+func on_message_finished_playing():
+	self._dequeue_next_message()
+
+func on_client_effect_added(effect: C_Effect):
 	# TODO decide what exactly can each of the types affect (what gets passed)
 	# for ex image should get access to bg which can contain sprite, but it
 	# should not be allowed to modify layout.
@@ -86,6 +87,9 @@ func on_interaction():
 	pass
 
 
+# # # # # # # # # # #
+# Private Functions #
+# # # # # # # # # # #
 #func _gui_input(event):
 #	print('guiinput', event)
 #
@@ -104,21 +108,18 @@ func _load_messages_from_string(story: String):
 			message += lines[line_idx] + '\n'
 
 
-
 func _play_message(message):
 	if len(self.c_effects) > 0:
 		for effect in c_effects:
 			effect.apply(self)
 	
 	message_container.add_child(message)
-	message.connect("finished_playing", Callable(self, "_dequeue_next_message"))
 	message.set_process(true)
-	emit_signal("message_added")
+	EventBus.emit_signal("message_added")
 
-# for later, when messages will be properly ordered
-# not meant to be called directly
+
 func _dequeue_next_message():
-	# Signalled from messages when they finish playing so that next one can load (if queued)
+	# Adds next message from queue if any are left
 	if not queued_messages.is_empty():
 		var message = queued_messages.pop_front()
 		self._play_message(message)

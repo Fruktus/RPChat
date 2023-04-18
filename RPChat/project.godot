@@ -20,6 +20,7 @@ config/icon="res://icon.png"
 EffectFactory="*res://components/effects/EffectFactory.gd"
 Storage="*res://components/storage/Storage.gd"
 Parser="*res://components/parser/Parser.gd"
+EventBus="*res://components/event_bus/EventBus.gd"
 
 [display]
 

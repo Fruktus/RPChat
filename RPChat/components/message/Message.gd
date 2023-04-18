@@ -1,8 +1,6 @@
 extends Control
 class_name Message
 
-signal finished_playing
-signal c_effect(effect)
 
 @onready var line_container = $MarginContainer/LineContainer
 
@@ -16,6 +14,7 @@ var current_character_idx = 0
 func _ready() -> void:
 	set_process(false)
 	self._init_message()
+
 
 # every message will be self-contained parsing-wise, as in at first you pass ALL
 # the parameters needed to format stuff and at the end everything gets reset (to think about, maybe change)
@@ -68,7 +67,7 @@ func update_settings(tag):
 			self.current_effect = len(self.m_effects) - 1
 		elif effect is C_Effect:
 			effect.init(tag.effects[key])
-			emit_signal("c_effect", effect)
+			EventBus.emit_signal("client_effect_added", effect)
 
 
 func _apply_effects(delta: float):
@@ -94,7 +93,8 @@ func _apply_effects(delta: float):
 			element.enable()
 			current_effect = len(self.m_effects) - 1
 		self.current_character_idx += 1
-	emit_signal("finished_playing")
+	
+	EventBus.emit_signal("message_finished_playing")
 	set_process(false)
 
 func _process(delta: float):
