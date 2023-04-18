@@ -15,7 +15,7 @@ func type():
 	pass 
 
 
-func apply(object: Node):
+func apply(_object: Node):
 	# the object is dependent on effect type
 	# the object is element of chat window responsible for handling given effect type
 	# such as AudioStreamPlayer or TextureRect.

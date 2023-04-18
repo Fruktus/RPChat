@@ -18,7 +18,7 @@ func type():
 	return self.Type.AUDIO
 
 
-func apply(object: Node):
+func apply(_object: Node):
 	# may be ran more than once, returns true if the effect has completed and
 	# can be removed
 	pass
