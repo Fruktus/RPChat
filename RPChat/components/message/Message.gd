@@ -15,7 +15,7 @@ var current_character_idx = 0
 
 func _ready() -> void:
 	set_process(false)
-	self._init()
+	self._init_message()
 
 # every message will be self-contained parsing-wise, as in at first you pass ALL
 # the parameters needed to format stuff and at the end everything gets reset (to think about, maybe change)
@@ -28,7 +28,7 @@ func init(text: String):
 	# takes raw text and builds message objects composed of characters and effects tags
 	self.parsed_text = Parser.parse_message(text)
 
-func _init():
+func _init_message():
 	for token in self.parsed_text:
 		if token is Dictionary:
 			var tag = preload("res://components/tag/Tag.tscn").instantiate()
@@ -36,14 +36,16 @@ func _init():
 			
 			line_container.append(tag)
 		else:
-			for character in token:
-				if character == '\n':
-					line_container.newline()
-					continue
-					
+			for character_idx in range(len(token)):
+				var character = token[character_idx]
 				var character_container = preload("res://components/message/Character.tscn").instantiate()
 				character_container.set_character(character)
 				line_container.append(character_container)
+				
+				if character == '\n':
+					if character_idx == len(token) - 1:
+						return
+					line_container.newline()
 
 
 func update_settings(tag):

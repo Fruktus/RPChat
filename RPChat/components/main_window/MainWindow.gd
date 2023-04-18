@@ -98,7 +98,7 @@ func _load_messages_from_string(story: String):
 	
 	for line_idx in range(len(lines)):
 		if lines[line_idx] == '':
-			add_message(message.trim_suffix('\n'))
+			add_message(message)
 			message = ''
 		else:
 			message += lines[line_idx] + '\n'
