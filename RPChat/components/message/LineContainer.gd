@@ -18,6 +18,7 @@ func append(element):
 func newline():
 	var new_hbox = HBoxContainer.new()
 	new_hbox.add_theme_constant_override("separation", 0)
+	add_child(new_hbox)
 	linecount += 1
 	elements_in_lines.append(0)
 

@@ -15,9 +15,10 @@ func type():
 
 func apply(object: Node):
 	# object is MainWindow
-	object._clear_messages()
+	object.clear_messages()
 
 
 func run_once():
 	# Whether this effect should get removed after executing it
+	# TODO maybe rename the method to remove_after_run or smth
 	return false
