@@ -9,4 +9,4 @@ and is multiline
 
 {{t_wave}}This text is wavy
 
-This text fades in{{m_fadein: 1}} 
+This text fades in{{m_fadein: 1}}

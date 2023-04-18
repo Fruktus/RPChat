@@ -1,10 +1,9 @@
-{{c_singlemsg}}{{m_type}}This is a simple story showcase{{m_pause: 1}} 
+{{c_singlemsg}}{{m_type}}This is a simple story showcase{{m_pause: 1}}
 
-{{m_type}}It presents each message in a linear fashion{{m_pause: 1}} 
+{{m_type}}It presents each message in a linear fashion{{m_pause: 1}}
 
-{{m_type}}One{{m_pause}} 
+{{m_type}}One{{m_pause}}
 
-{{m_type}}By{{m_pause}} 
+{{m_type}}By{{m_pause}}
 
-{{m_type}}One{{m_pause: 3}} 
-
+{{m_type}}One{{m_pause: 3}}
