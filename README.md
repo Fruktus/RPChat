@@ -1,5 +1,5 @@
 # RPChat
-[![platform](https://img.shields.io/badge/godot-4.0.1-blue)](https://godotengine.org/)
+[![platform](https://img.shields.io/badge/godot-4.0.2-blue)](https://godotengine.org/)
 [![release](https://img.shields.io/github/v/release/Fruktus/RPChat?include_prereleases)](https://github.com/Fruktus/RPChat/releases)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Fruktus/RPChat)](https://github.com/Fruktus/RPChat/commits/master)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Fruktus/RPChat)](https://github.com/Fruktus/RPChat/graphs/commit-activity)
