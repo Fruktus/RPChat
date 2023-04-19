@@ -7,9 +7,18 @@ var amp = 10
 
 
 
+func _init():
+	self.run_once = false
+	self.description = 'Makes the text move up and down in a wave pattern'
+	self.default_settings = {
+		'amp': {
+			'value': 10,
+			'help': 'Determines the amplitude of the wave effect'
+		}
+	}
+
+
 func init(_params: Dictionary):
-	# param should contain all the parameters that the effect accepts,
-	# but effect should also provide defaults for those and check if params are present
 	pass
 
 func instance():
@@ -23,11 +32,3 @@ func instance():
 func apply(Character: Character):
 	# this method should execute character logic, may be ran more than once in loop
 	Character.get_label().set_position(Vector2(0, self.amp * sin(Time.get_ticks_msec() * 0.01 + x)))  # TODO check if best way to get time
-
-
-func run_once():
-	# when effect is initialized (appended to Character) the Character
-	# runs this.
-	# if true, the effect is executed immediately and discarded.
-	# if false, the effect will be executed in the process loop after initialization 
-	return false
