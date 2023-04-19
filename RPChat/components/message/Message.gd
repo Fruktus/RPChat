@@ -92,6 +92,9 @@ func _update_settings(tag):
 			continue
 		
 		var effect = EffectFactory.get_effect(key)
+		if effect == null:
+			print('unrecognized effect:', key)
+			return
 
 		if effect is T_Effect:
 			effect.init(tag.effects[key])
