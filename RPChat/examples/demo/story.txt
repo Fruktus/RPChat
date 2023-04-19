@@ -9,4 +9,6 @@ and is multiline
 
 {{t_wave}}This text is wavy
 
-This text fades in{{m_fadein: 1}}
+This text should fade in{{m_fadein: 1}}
+
+This message should pause and get removed at the end{{m_pause}} {{m_rmmsg}}

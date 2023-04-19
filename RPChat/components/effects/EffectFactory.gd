@@ -8,6 +8,8 @@ var effects = {
 	"m_type": M_Type,
 	"m_pause": M_Pause,
 	"m_fadein": M_Fadein,
+	"m_waitclick": M_Waitclick,
+	"m_rmmsg": M_Rmmsg,
 	"c_bgm": C_BGM,
 	"c_singlemsg": C_Singlemsg,
 	"template": "res://lion.gd"  # No idea what this is

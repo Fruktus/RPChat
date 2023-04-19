@@ -4,7 +4,7 @@ var scroll_manually_changed = false
 
 
 func _ready():
-	EventBus.connect("message_added", Callable(self, "on_message_added"))
+	EventBus.connect("client_added_message", Callable(self, "on_message_added"))
 
 func on_message_added():
 	# TODO call after displaying the message or refresh from time to time or smth

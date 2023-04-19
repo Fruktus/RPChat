@@ -90,11 +90,10 @@ func on_interaction():
 # # # # # # # # # # #
 # Private Functions #
 # # # # # # # # # # #
-#func _gui_input(event):
-#	print('guiinput', event)
-#
-#func _input(event):
-#	print('input', event)
+func _input(event):
+	if event is InputEventMouseButton and event.pressed:
+		EventBus.emit_signal("client_received_input")
+
 
 func _load_messages_from_string(story: String):
 	var lines = story.split('\n')
@@ -114,8 +113,8 @@ func _play_message(message):
 			effect.apply(self)
 	
 	message_container.add_child(message)
-	message.set_process(true)
-	EventBus.emit_signal("message_added")
+	message.play()
+	EventBus.emit_signal("client_added_message")
 
 
 func _dequeue_next_message():
